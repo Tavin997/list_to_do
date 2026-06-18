@@ -7,6 +7,8 @@
     <title></title>
 </head>
 <body>
-    <?php header('location: /front-end/home.hmtl'); ?>
+   <script>
+        window.location.href = '/front-end/home.html';
+   </script>
 </body>
 </html>
