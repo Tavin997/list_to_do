@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Tarefas - Organize seu dia</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="../assets/css/home.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-check2-square"></i>
+                Minhas Tarefas
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Recursos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">Sobre</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contato</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" onclick="window.location.href='login.html'">
+                            <i class="bi bi-box-arrow-in-right"></i> Entrar
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="display-3 fw-bold mb-4">
+                        Organize suas <br>
+                        <span class="gradient-text">tarefas</span> com <br>
+                        eficiência
+                    </h1>
+                    <p class="lead mb-4 text-muted">
+                        Gerencie suas tarefas diárias de forma simples e intuitiva.
+                        Aumente sua produtividade e nunca mais esqueça nada importante.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary btn-lg me-3" onclick="window.location.href='signUp.html'">
+                            <i class="bi bi-person-plus"></i> Começar Agora
+                        </button>
+                        <button class="btn btn-outline-secondary btn-lg" onclick="scrollToSection('features')">
+                            <i class="bi bi-play-circle"></i> Ver Demo
+                        </button>
+                    </div>
+                    <div class="hero-stats mt-5">
+                        <div class="row g-4">
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="fw-bold">10K+</h3>
+                                    <p class="text-muted">Usuários ativos</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="fw-bold">50K+</h3>
+                                    <p class="text-muted">Tarefas concluídas</p>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="stat-item">
+                                    <h3 class="fw-bold">98%</h3>
+                                    <p class="text-muted">Satisfação</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hero-image text-center">
+                    <img src="https://via.placeholder.com/600x400/2ecc71/ffffff?text=To-Do+App+Preview"
+                        alt="To-Do App Preview" class="img-fluid rounded-4 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Recursos incríveis</h2>
+                <p class="text-muted">Tudo o que você precisa para gerenciar suas tarefas</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-plus-circle"></i>
+                        </div>
+                        <h4>Crie Tarefas</h4>
+                        <p class="text-muted">Adicione tarefas rapidamente com título, descrição e prazo.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-tag"></i>
+                        </div>
+                        <h4>Categorize</h4>
+                        <p class="text-muted">Organize suas tarefas por categorias e prioridades.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+                        <h4>Conclua</h4>
+                        <p class="text-muted">Marque tarefas como concluídas e acompanhe seu progresso.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <h4>Lembretes</h4>
+                        <p class="text-muted">Receba notificações para não esquecer suas tarefas.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-graph-up"></i>
+                        </div>
+                        <h4>Estatísticas</h4>
+                        <p class="text-muted">Visualize seu progresso com gráficos e relatórios.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-cloud"></i>
+                        </div>
+                        <h4>Sincronização</h4>
+                        <p class="text-muted">Acesse suas tarefas em qualquer dispositivo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">
+                        Por que escolher <br>
+                        <span class="gradient-text">Minhas Tarefas</span>?
+                    </h2>
+                    <p class="mb-4">
+                        Somos a plataforma de gerenciamento de tarefas mais simples e eficiente do mercado.
+                        Nossa missão é ajudar pessoas e equipes a organizarem seu dia a dia de forma produtiva.
+                    </p>
+                    <div class="about-features">
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Interface intuitiva e fácil de usar</span>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Acesso gratuito com recursos premium</span>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Suporte 24/7 para nossos usuários</span>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            <span>Segurança e privacidade dos seus dados</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image">
+                        <img src="https://via.placeholder.com/500x400/2ecc71/ffffff?text=About+Us" alt="About Us"
+                            class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">O que nossos usuários dizem</h2>
+                <p class="text-muted">Depoimentos de quem já usa Minhas Tarefas</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://img.magnific.com/fotos-gratis/pessoa-de-origem-indiana-se-divertindo_23-2150285283.jpg" alt="User" class="rounded-circle me-3">
+                            <div>
+                                <h6 class="mb-0">Ana Silva</h6>
+                                <small class="text-muted">Designer</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">
+                            "Minhas Tarefas transformou completamente minha rotina.
+                            Consigo organizar todos os meus projetos de forma eficiente!"
+                        </p>
+                        <div class="stars mt-2">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://i.pinimg.com/236x/d1/2f/89/d12f89633879525aca4d910d6e487d04.jpg" alt="User" class="rounded-circle me-3">
+                            <div>
+                                <h6 class="mb-0">Carlos Mendes</h6>
+                                <small class="text-muted">Desenvolvedor</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">
+                            "A interface é incrível e as funcionalidades são exatamente o que eu
+                            precisava para gerenciar minhas tarefas diárias."
+                        </p>
+                        <div class="stars mt-2">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <img src="https://i.pinimg.com/474x/94/07/37/940737420afb3610eb8402a39b4fde81.jpg" alt="User" class="rounded-circle me-3">
+                            <div>
+                                <h6 class="mb-0">Mariana Costa</h6>
+                                <small class="text-muted">Empresária</small>
+                            </div>
+                        </div>
+                        <p class="mb-0">
+                            "Desde que comecei a usar Minhas Tarefas, minha produtividade
+                            aumentou em 80%. Recomendo para todos!"
+                        </p>
+                        <div class="stars mt-2">
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="display-5 fw-bold mb-3">
+                        Pronto para organizar sua vida?
+                    </h2>
+                    <p class="lead mb-4">
+                        Comece hoje mesmo a gerenciar suas tarefas de forma simples e eficiente.
+                    </p>
+                    <button class="btn btn-light btn-lg" onclick="window.location.href='signUp.html'">
+                        <i class="bi bi-rocket"></i> Criar conta gratuita
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="bi bi-check2-square"></i> Minhas Tarefas
+                    </h5>
+                    <p class="text-muted">
+                        Organize suas tarefas de forma simples e eficiente.
+                        Aumente sua produtividade todos os dias.
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Produto</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#features">Recursos</a></li>
+                        <li><a href="#">Preços</a></li>
+                        <li><a href="#">Integrações</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Empresa</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#about">Sobre</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Carreiras</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Newsletter</h6>
+                    <p class="text-muted">Receba novidades e dicas de produtividade</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Seu e-mail">
+                        <button class="btn btn-primary" type="button">Inscrever</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-muted mb-0">
+                        &copy; 2026 Minhas Tarefas. Todos os direitos reservados.
+                    </p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <a href="#" class="text-muted me-3">Privacidade</a>
+                    <a href="#" class="text-muted me-3">Termos</a>
+                    <a href="#" class="text-muted">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript Personalizado -->
+    <script src="../assets/js/home.js"></script>
+</body>
+
+</html>
