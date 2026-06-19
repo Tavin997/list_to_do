@@ -2,7 +2,7 @@
     session_start(); 
 
     if (!isset($_SESSION['logado'])) {
-        header('location: /list-to-do-cijf.onrender.com/front-end/login.html');
+        header('location: /front-end/login.html');
         exit;
     }
 ?>
