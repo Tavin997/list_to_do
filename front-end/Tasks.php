@@ -1,8 +1,8 @@
 <?php 
     session_start(); 
 
-    if (!$_SESSION['logado']) {
-        header('location: https://list-to-do-cijf.onrender.com/front-end/login.html');
+    if (!isset($_SESSION['logado'])) {
+        header('location: /list-to-do-cijf.onrender.com/front-end/login.html');
         exit;
     }
 ?>
