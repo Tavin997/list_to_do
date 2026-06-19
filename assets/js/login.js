@@ -1,5 +1,5 @@
 // Configuração da API
-const API_URL = 'http://localhost/projetos/list_to_do/banco-dados/login.php'; // Altere para sua URL do backend
+const API_URL = 'https://list-to-do-cijf.onrender.com/banco-dados/login.php'; // Altere para sua URL do backend
 
 // ============ FUNÇÕES DE TEMA ============
 function toggleTheme() {
@@ -148,7 +148,7 @@ async function handleLogin(event) {
 
             // Redirecionar após 1.5 segundos
             setTimeout(() => {
-                window.location.href = '/projetos/list_to_do/front-end/Tasks.php'; // ou página principal
+                window.location.href = '/front-end/Tasks.php'; // ou página principal
             }, 1500);
 
         } else {

@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 4. ENVIAR PARA O BACKEND VIA FETCH
             // ========================================
 
-            const response = await fetch('http://localhost/projetos/list_to_do/banco-dados/cadastroUsuario.php', {
+            const response = await fetch('https://list-to-do-cijf.onrender.com/banco-dados/cadastroUsuario.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
