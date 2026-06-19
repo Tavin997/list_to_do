@@ -1,3 +1,11 @@
+<?php 
+    session_start(); 
+
+    if (!$_SESSION['logado']) {
+        header('location: https://list-to-do-cijf.onrender.com/front-end/login.html');
+        exit;
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,16 +29,6 @@
 </head>
 
 <body>
-
-    <?php 
-        session_start(); 
-
-        if (!$_SESSION['logado']) {
-            header('location: https://list-to-do-cijf.onrender.com/front-end/login.html');
-            exit;
-        }
-    ?>
-
     <!-- Sidebar / Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container-fluid">
