@@ -1,19 +1,31 @@
 <?php
-    $host = getenv('DB_HOST');
-    $port = getenv('DB_PORT');
-    $dbname = getenv('DB_NAME');
-    $user = getenv('DB_USER');
-    $pass = getenv('DB_PASSWORD');
-    $ssl_ca = getenv('DB_SSL_CA') ?: '/etc/ssl/certs/ca-certificates.crt';
 
-    if (!$host || !$user || !$pass) {
+    $environment = getenv('APP_ENV') ?: 'development';
+
+    if ($environment === 'production') {
+        $host = getenv('DB_HOST');
+        $port = getenv('DB_PORT');
+        $dbname = getenv('DB_NAME');
+        $user = getenv('DB_USER');
+        $pass = getenv('DB_PASSWORD');
+        $ssl_ca = getenv('DB_SSL_CA') ?: '/banco-dados/ca.pem';
+    } else {
+        $host =  'localhost';
+        $port =  '3306';
+        $dbname ='todo';
+        $user =  'root';
+        $pass =  '';
+        $ssl_ca = null; 
+    }
+
+    if (!$host || !$user) {
         error_log("Erro: Variáveis de ambiente do banco de dados não estão configuradas corretamente");
         exit("Erro de configuração do banco de dados");
     }
 
     $conn = "mysql:";
     $conn .= "host=" . $host;
-    $conn .= ";port=" . ($port ?: 3306);
+    $conn .= ";port=" . ($port ?: 3307);
     $conn .= ";dbname=" . ($dbname ?: 'defaultdb');
     $conn .= ";sslmode=verify-ca";
     

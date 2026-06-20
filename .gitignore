@@ -1,0 +1,28 @@
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+*.env
+docker-compose.yml
+
+# Arquivos de dados
+*.sql
+*.sqlite
+mysql_data_dev/
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# scripts
+deploy-prod.sh
+start-dev.sh
+stop-dev.sh
