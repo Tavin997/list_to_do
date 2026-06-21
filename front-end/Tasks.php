@@ -2,7 +2,7 @@
     session_start(); 
 
     if (!isset($_SESSION['logado'])) {
-        header('location: /front-end/login.html');
+        header('location: ./login.html');
         exit;
     }
 ?>
@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Minhas Tarefas - Gerenciador</title>
 
     <!-- Bootstrap 5 CSS -->
@@ -29,109 +29,182 @@
 </head>
 
 <body>
-    <!-- Sidebar / Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <i class="bi bi-check2-square"></i>
-                Minhas Tarefas
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-lg-center">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <i class="bi bi-house"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-calendar"></i> Calendário
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-bar-chart"></i> Estatísticas
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-bs-toggle="dropdown">
-                            <span class="d-none d-lg-inline"> <?php echo $_SESSION['user_name'] ?> </span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-person"></i> Perfil</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear"></i> Configurações</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item text-danger" href="../banco-dados/logOut.php"><i
-                                        class="bi bi-box-arrow-right"></i> Sair</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
+    <!-- Bottom Navigation (Mobile First) -->
+    <nav class="bottom-nav">
+        <div class="bottom-nav-item active" data-tab="dashboard">
+            <i class="bi bi-house"></i>
+            <span>Início</span>
+        </div>
+        <div class="bottom-nav-item" data-tab="calendar">
+            <i class="bi bi-calendar"></i>
+            <span>Calendário</span>
+        </div>
+        <div class="bottom-nav-item" data-tab="stats">
+            <i class="bi bi-bar-chart"></i>
+            <span>Stats</span>
+        </div>
+        <div class="bottom-nav-item" data-tab="profile">
+            <i class="bi bi-person"></i>
+            <span>Perfil</span>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <div class="container-fluid">
-            <!-- Header -->
-            <div class="row mb-4">
-                <div class="col-md-8">
-                    <h1 class="page-title">
-                        <i class="bi bi-list-check"></i> Minhas Tarefas
-                    </h1>
-                    <p class="text-muted">Gerencie suas tarefas diárias de forma eficiente</p>
+    <!-- Top Header -->
+    <header class="top-header">
+        <div class="header-content">
+            <div class="header-left">
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="bi bi-list"></i>
                 </div>
-                <div class="col-md-4 text-md-end">
-                    <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#taskModal">
-                        <i class="bi bi-plus-circle"></i> Nova Tarefa
+                <div class="brand">
+                    <i class="bi bi-check2-square"></i>
+                    <span>Minhas Tarefas</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="btn-notification" id="notificationBtn">
+                    <i class="bi bi-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="user-avatar" id="userAvatar">
+                    <span><?php echo substr($_SESSION['user_name'], 0, 2); ?></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar-menu" id="sidebarMenu">
+        <div class="sidebar-header">
+            <div class="user-info">
+                <div class="user-avatar-large">
+                    <span><?php echo substr($_SESSION['user_name'], 0, 2); ?></span>
+                </div>
+                <div>
+                    <h5><?php echo $_SESSION['user_name']; ?></h5>
+                    <p class="text-muted"><?php echo $_SESSION['user_email']; ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-body">
+            <a href="#" class="sidebar-item active">
+                <i class="bi bi-house"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-calendar"></i>
+                <span>Calendário</span>
+            </a>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-bar-chart"></i>
+                <span>Estatísticas</span>
+            </a>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-gear"></i>
+                <span>Configurações</span>
+            </a>
+            <a href="#" class="sidebar-item">
+                <i class="bi bi-question-circle"></i>
+                <span>Ajuda</span>
+            </a>
+            <hr>
+            <a href="../banco-dados/logOut.php" class="sidebar-item text-danger">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sair</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container-fluid px-3">
+            <!-- Header Section -->
+            <div class="header-section mb-3">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <h1 class="page-title">
+                            <i class="bi bi-list-check"></i> Minhas Tarefas
+                        </h1>
+                        <p class="text-muted small">Gerencie suas tarefas diárias</p>
+                    </div>
+                    <button class="btn btn-primary btn-add-task" data-bs-toggle="modal" data-bs-target="#taskModal">
+                        <i class="bi bi-plus-lg"></i>
                     </button>
                 </div>
             </div>
 
-            <!-- Filters -->
-            <div class="row mb-4">
-                <div class="col-md-12">
-                    <div class="filter-bar">
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-filter active" data-filter="all">
-                                <i class="bi bi-list-ul"></i> Todas
-                                <span class="badge bg-primary" id="allCount">0</span>
-                            </button>
-                            <button class="btn btn-filter" data-filter="pending">
-                                <i class="bi bi-clock"></i> Pendentes
-                                <span class="badge bg-warning" id="pendingCount">0</span>
-                            </button>
-                            <button class="btn btn-filter" data-filter="in-progress">
-                                <i class="bi bi-arrow-repeat"></i> Em Andamento
-                                <span class="badge bg-info" id="progressCount">0</span>
-                            </button>
-                            <button class="btn btn-filter" data-filter="completed">
-                                <i class="bi bi-check-circle"></i> Concluídas
-                                <span class="badge bg-success" id="completedCount">0</span>
-                            </button>
-                        </div>
-
-                        <div class="search-box ms-auto">
-                            <div class="input-group">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span>
-                                <input type="text" class="form-control" id="searchInput"
-                                    placeholder="Buscar tarefas...">
-                            </div>
-                        </div>
+            <!-- Quick Stats -->
+            <div class="quick-stats mb-3">
+                <div class="stat-card">
+                    <div class="stat-icon bg-primary">
+                        <i class="bi bi-list-ul"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="allCount">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon bg-warning">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="pendingCount">0</span>
+                        <span class="stat-label">Pendentes</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon bg-info">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="progressCount">0</span>
+                        <span class="stat-label">Progresso</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon bg-success">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" id="completedCount">0</span>
+                        <span class="stat-label">Concluídas</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Tasks Grid -->
-            <div class="row" id="tasksContainer">
+            <!-- Search and Filters -->
+            <div class="search-filter-section mb-3">
+                <div class="search-box">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                        <input type="text" class="form-control" id="searchInput" 
+                               placeholder="Buscar tarefas...">
+                        <button class="btn btn-filter-toggle" id="filterToggle">
+                            <i class="bi bi-funnel"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="filter-chips" id="filterChips">
+                    <button class="chip active" data-filter="all">
+                        <i class="bi bi-list-ul"></i> Todas
+                    </button>
+                    <button class="chip" data-filter="pending">
+                        <i class="bi bi-clock"></i> Pendentes
+                    </button>
+                    <button class="chip" data-filter="in-progress">
+                        <i class="bi bi-arrow-repeat"></i> Progresso
+                    </button>
+                    <button class="chip" data-filter="completed">
+                        <i class="bi bi-check-circle"></i> Concluídas
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tasks List -->
+            <div class="tasks-list" id="tasksContainer">
                 <!-- Tasks will be rendered here -->
             </div>
 
@@ -139,17 +212,22 @@
             <div class="empty-state" id="emptyState" style="display: none;">
                 <i class="bi bi-inbox"></i>
                 <h3>Nenhuma tarefa encontrada</h3>
-                <p class="text-muted">Comece adicionando sua primeira tarefa clicando no botão "Nova Tarefa"</p>
+                <p class="text-muted">Comece adicionando sua primeira tarefa</p>
                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">
-                    <i class="bi bi-plus-circle"></i> Criar primeira tarefa
+                    <i class="bi bi-plus-circle"></i> Criar tarefa
                 </button>
             </div>
+
+            <!-- Floating Action Button (FAB) for Mobile -->
+            <button class="fab" data-bs-toggle="modal" data-bs-target="#taskModal">
+                <i class="bi bi-plus-lg"></i>
+            </button>
         </div>
-    </div>
+    </main>
 
     <!-- Modal Nova Tarefa -->
-    <div class="modal fade" id="taskModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade modal-fullscreen-sm" id="taskModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -169,8 +247,8 @@
                             <textarea class="form-control" id="taskDescription" rows="3"
                                 placeholder="Descreva sua tarefa em detalhes..."></textarea>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                        <div class="row g-2">
+                            <div class="col-6 mb-3">
                                 <label for="taskPriority" class="form-label fw-bold">Prioridade</label>
                                 <select class="form-select" id="taskPriority">
                                     <option value="low">🔵 Baixa</option>
@@ -178,7 +256,7 @@
                                     <option value="high">🔴 Alta</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-6 mb-3">
                                 <label for="taskStatus" class="form-label fw-bold">Status</label>
                                 <select class="form-select" id="taskStatus">
                                     <option value="pending">⏳ Pendente</option>
@@ -187,8 +265,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                        <div class="row g-2">
+                            <div class="col-6 mb-3">
                                 <label for="taskCategory" class="form-label fw-bold">Categoria</label>
                                 <select class="form-select" id="taskCategory">
                                     <option value="personal">👤 Pessoal</option>
@@ -198,8 +276,8 @@
                                     <option value="other">📌 Outros</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="taskDueDate" class="form-label fw-bold">Data de vencimento</label>
+                            <div class="col-6 mb-3">
+                                <label for="taskDueDate" class="form-label fw-bold">Vencimento</label>
                                 <input type="date" class="form-control" id="taskDueDate">
                             </div>
                         </div>
@@ -208,7 +286,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="saveTaskBtn">
-                        <i class="bi bi-check-circle"></i> Salvar Tarefa
+                        <i class="bi bi-check-circle"></i> Salvar
                     </button>
                 </div>
             </div>
@@ -216,8 +294,8 @@
     </div>
 
     <!-- Modal Editar Tarefa -->
-    <div class="modal fade" id="editTaskModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade modal-fullscreen-sm" id="editTaskModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
@@ -236,8 +314,8 @@
                             <label for="editTaskDescription" class="form-label fw-bold">Descrição</label>
                             <textarea class="form-control" id="editTaskDescription" rows="3"></textarea>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                        <div class="row g-2">
+                            <div class="col-6 mb-3">
                                 <label for="editTaskPriority" class="form-label fw-bold">Prioridade</label>
                                 <select class="form-select" id="editTaskPriority">
                                     <option value="low">🔵 Baixa</option>
@@ -245,7 +323,7 @@
                                     <option value="high">🔴 Alta</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-6 mb-3">
                                 <label for="editTaskStatus" class="form-label fw-bold">Status</label>
                                 <select class="form-select" id="editTaskStatus">
                                     <option value="pending">⏳ Pendente</option>
@@ -254,8 +332,8 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
+                        <div class="row g-2">
+                            <div class="col-6 mb-3">
                                 <label for="editTaskCategory" class="form-label fw-bold">Categoria</label>
                                 <select class="form-select" id="editTaskCategory">
                                     <option value="personal">👤 Pessoal</option>
@@ -265,8 +343,8 @@
                                     <option value="other">📌 Outros</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="editTaskDueDate" class="form-label fw-bold">Data de vencimento</label>
+                            <div class="col-6 mb-3">
+                                <label for="editTaskDueDate" class="form-label fw-bold">Vencimento</label>
                                 <input type="date" class="form-control" id="editTaskDueDate">
                             </div>
                         </div>
@@ -275,7 +353,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="button" class="btn btn-primary" id="updateTaskBtn">
-                        <i class="bi bi-check-circle"></i> Atualizar Tarefa
+                        <i class="bi bi-check-circle"></i> Atualizar
                     </button>
                 </div>
             </div>
@@ -283,8 +361,8 @@
     </div>
 
     <!-- Toast Notifications -->
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-        <div id="liveToast" class="toast align-items-center border-0" role="alert" aria-live="assertive"
+    <div class="position-fixed bottom-0 start-0 end-0 p-3" style="z-index: 11; max-width: 400px; margin: 0 auto;">
+        <div id="liveToast" class="toast align-items-center border-0 w-100" role="alert" aria-live="assertive"
             aria-atomic="true">
             <div class="d-flex">
                 <div class="toast-body" id="toastMessage">

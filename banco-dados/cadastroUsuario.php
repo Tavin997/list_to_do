@@ -5,7 +5,7 @@
     function cadastrarUsuario($Name, $Email, $Senha, $db){
         try {
 
-            $sql = "INSERT INTO usuarios(userName, userEmail, userPassword)
+            $sql = "INSERT INTO usuarios(nome, email, senha)
             VALUES ( :userName , :userEmail , :userPassword )";
 
             $stmt = $db->prepare($sql);
@@ -43,7 +43,7 @@
 
     function validacaoEmail($Email, $db){
         try {
-            $sql = "SELECT COUNT(*) as total FROM usuarios WHERE userEmail = :email";
+            $sql = "SELECT COUNT(*) as total FROM usuarios WHERE email = :email";
 
             $stmt = $db->prepare($sql);
 

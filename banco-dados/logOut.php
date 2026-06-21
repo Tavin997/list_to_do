@@ -17,6 +17,6 @@
 }
 
     session_destroy();
-    header('location: /front-end/login.html');
+    header('location: ../front-end/login.html');
     exit;
 ?>

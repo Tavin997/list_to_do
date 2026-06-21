@@ -1,4 +1,4 @@
-// Gerenciador de Tarefas
+// Gerenciador de Tarefas - Mobile First
 class TaskManager {
     constructor() {
         this.tasks = [];
@@ -8,15 +8,14 @@ class TaskManager {
         this.initializeEventListeners();
         this.renderTasks();
         this.updateCounts();
+        this.initializeMobileUI();
     }
 
-    // Carregar tarefas do localStorage
     loadTasks() {
         const saved = localStorage.getItem('tasks');
         if (saved) {
             this.tasks = JSON.parse(saved);
         } else {
-            // Tarefas de exemplo
             this.tasks = [
                 {
                     id: 1,
@@ -53,12 +52,10 @@ class TaskManager {
         }
     }
 
-    // Salvar tarefas no localStorage
     saveTasks() {
         localStorage.setItem('tasks', JSON.stringify(this.tasks));
     }
 
-    // Adicionar nova tarefa
     addTask(taskData) {
         const newTask = {
             id: Date.now(),
@@ -73,7 +70,6 @@ class TaskManager {
         return newTask;
     }
 
-    // Atualizar tarefa
     updateTask(id, updatedData) {
         const index = this.tasks.findIndex(t => t.id === id);
         if (index !== -1) {
@@ -87,7 +83,6 @@ class TaskManager {
         return false;
     }
 
-    // Excluir tarefa
     deleteTask(id) {
         if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
             this.tasks = this.tasks.filter(t => t.id !== id);
@@ -100,7 +95,6 @@ class TaskManager {
         return false;
     }
 
-    // Mudar status da tarefa
     toggleStatus(id) {
         const task = this.tasks.find(t => t.id === id);
         if (task) {
@@ -124,16 +118,13 @@ class TaskManager {
         return false;
     }
 
-    // Filtrar tarefas
     getFilteredTasks() {
         let filtered = this.tasks;
 
-        // Filtro por status
         if (this.currentFilter !== 'all') {
             filtered = filtered.filter(t => t.status === this.currentFilter);
         }
 
-        // Filtro por busca
         if (this.currentSearch.trim()) {
             const search = this.currentSearch.toLowerCase().trim();
             filtered = filtered.filter(t => 
@@ -146,7 +137,6 @@ class TaskManager {
         return filtered;
     }
 
-    // Renderizar tarefas
     renderTasks() {
         const container = document.getElementById('tasksContainer');
         const emptyState = document.getElementById('emptyState');
@@ -162,7 +152,6 @@ class TaskManager {
         container.innerHTML = filtered.map(task => this.createTaskCard(task)).join('');
     }
 
-    // Criar card da tarefa
     createTaskCard(task) {
         const priorityColors = {
             low: 'priority-low',
@@ -189,41 +178,37 @@ class TaskManager {
         const createdDate = new Date(task.createdAt).toLocaleDateString('pt-BR');
 
         return `
-            <div class="col-md-6 col-xl-4">
-                <div class="task-card ${priorityColors[task.priority]} ${isCompleted ? 'completed' : ''}" data-task-id="${task.id}">
-                    <div class="task-header">
-                        <h5 class="task-title">${task.title}</h5>
-                        <div class="task-badges">
-                            <span class="task-badge status-${task.status}">${statusLabels[task.status]}</span>
-                            <span class="task-badge priority-${task.priority}">${task.priority === 'high' ? '🔴' : task.priority === 'medium' ? '🟡' : '🔵'} ${task.priority}</span>
-                        </div>
+            <div class="task-card ${priorityColors[task.priority]} ${isCompleted ? 'completed' : ''}" data-task-id="${task.id}">
+                <div class="task-header">
+                    <h5 class="task-title">${task.title}</h5>
+                    <div class="task-badges">
+                        <span class="task-badge status-${task.status}">${statusLabels[task.status]}</span>
                     </div>
-                    
-                    ${task.description ? `<p class="task-description">${task.description}</p>` : ''}
-                    
-                    <div class="task-meta">
-                        <span><i class="bi bi-tag"></i> ${categoryIcons[task.category] || '📌'} ${task.category}</span>
-                        <span><i class="bi bi-calendar"></i> ${dueDate}</span>
-                        <span><i class="bi bi-clock"></i> ${createdDate}</span>
-                    </div>
-                    
-                    <div class="task-actions">
-                        <button class="btn btn-outline-success btn-sm" onclick="taskManager.toggleStatus(${task.id})">
-                            <i class="bi bi-arrow-repeat"></i> Mudar Status
-                        </button>
-                        <button class="btn btn-outline-primary btn-sm" onclick="taskManager.openEditModal(${task.id})">
-                            <i class="bi bi-pencil"></i> Editar
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm" onclick="taskManager.deleteTask(${task.id})">
-                            <i class="bi bi-trash"></i> Excluir
-                        </button>
-                    </div>
+                </div>
+                
+                ${task.description ? `<p class="task-description">${task.description}</p>` : ''}
+                
+                <div class="task-meta">
+                    <span><i class="bi bi-tag"></i> ${categoryIcons[task.category] || '📌'} ${task.category}</span>
+                    <span><i class="bi bi-calendar"></i> ${dueDate}</span>
+                    <span><i class="bi bi-clock"></i> ${createdDate}</span>
+                </div>
+                
+                <div class="task-actions">
+                    <button class="btn btn-outline-success btn-sm" onclick="taskManager.toggleStatus(${task.id})">
+                        <i class="bi bi-arrow-repeat"></i> Status
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="taskManager.openEditModal(${task.id})">
+                        <i class="bi bi-pencil"></i> Editar
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm" onclick="taskManager.deleteTask(${task.id})">
+                        <i class="bi bi-trash"></i> Excluir
+                    </button>
                 </div>
             </div>
         `;
     }
 
-    // Atualizar contadores
     updateCounts() {
         const total = this.tasks.length;
         const pending = this.tasks.filter(t => t.status === 'pending').length;
@@ -236,7 +221,6 @@ class TaskManager {
         document.getElementById('completedCount').textContent = completed;
     }
 
-    // Abrir modal de edição
     openEditModal(id) {
         const task = this.tasks.find(t => t.id === id);
         if (task) {
@@ -253,7 +237,77 @@ class TaskManager {
         }
     }
 
-    // Inicializar eventos
+    initializeMobileUI() {
+        // Sidebar toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebarMenu');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Bottom navigation
+        document.querySelectorAll('.bottom-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.bottom-nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Filter chips toggle
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', function() {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                taskManager.currentFilter = this.dataset.filter;
+                taskManager.renderTasks();
+            });
+        });
+
+        // Filter toggle for search
+        document.getElementById('filterToggle')?.addEventListener('click', () => {
+            const chips = document.getElementById('filterChips');
+            chips.style.display = chips.style.display === 'none' ? 'flex' : 'none';
+        });
+
+        // Close modais com gesto de swipe (mobile)
+        let touchStartY = 0;
+        document.querySelectorAll('.modal-content').forEach(content => {
+            content.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            content.addEventListener('touchmove', (e) => {
+                const touchEndY = e.touches[0].clientY;
+                const diff = touchEndY - touchStartY;
+                if (diff > 100 && content.scrollTop === 0) {
+                    const modal = content.closest('.modal');
+                    if (modal) {
+                        bootstrap.Modal.getInstance(modal)?.hide();
+                    }
+                }
+            }, { passive: true });
+        });
+
+        // Clique fora do modal para fechar (mobile)
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    bootstrap.Modal.getInstance(this)?.hide();
+                }
+            });
+        });
+    }
+
     initializeEventListeners() {
         // Salvar nova tarefa
         document.getElementById('saveTaskBtn').addEventListener('click', () => {
@@ -273,8 +327,6 @@ class TaskManager {
             };
 
             this.addTask(taskData);
-            
-            // Resetar e fechar modal
             document.getElementById('taskForm').reset();
             bootstrap.Modal.getInstance(document.getElementById('taskModal')).hide();
         });
@@ -302,41 +354,29 @@ class TaskManager {
             bootstrap.Modal.getInstance(document.getElementById('editTaskModal')).hide();
         });
 
-        // Filtros
-        document.querySelectorAll('.btn-filter').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                this.currentFilter = btn.dataset.filter;
-                this.renderTasks();
-            });
-        });
-
         // Busca
         document.getElementById('searchInput').addEventListener('input', (e) => {
             this.currentSearch = e.target.value;
             this.renderTasks();
         });
 
-        // Enter para salvar no modal
+        // Enter para salvar
         document.getElementById('taskTitle').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
                 document.getElementById('saveTaskBtn').click();
             }
         });
 
-        // Tecla Escape para fechar modais
+        // Fechar modais com Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                const modals = document.querySelectorAll('.modal.show');
-                modals.forEach(modal => {
+                document.querySelectorAll('.modal.show').forEach(modal => {
                     bootstrap.Modal.getInstance(modal)?.hide();
                 });
             }
         });
     }
 
-    // Toast notifications
     showToast(message, type = 'info') {
         const toast = document.getElementById('liveToast');
         const toastBody = document.getElementById('toastMessage');
@@ -359,16 +399,11 @@ class TaskManager {
     }
 }
 
-// Instanciar o gerenciador
+// Instanciar
 const taskManager = new TaskManager();
-
-// Funções globais para uso no HTML
 window.taskManager = taskManager;
 
-// Salvar dados antes de sair
+// Salvar antes de sair
 window.addEventListener('beforeunload', () => {
     taskManager.saveTasks();
 });
-
-// Exportar para uso em outros módulos (opcional)
-export default TaskManager;

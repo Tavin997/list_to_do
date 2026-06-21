@@ -9,7 +9,7 @@
 
     function realizarLogin($Email, $Senha, $db){
 
-        $sql = "SELECT userID, userName, userEmail, userPassword FROM usuarios WHERE userEmail = :email";
+        $sql = "SELECT id, nome, email, senha FROM usuarios WHERE email = :email";
 
         $stmt = $db->prepare($sql);
 
@@ -28,11 +28,11 @@
             exit;
         }
 
-        if ($resposta['userEmail'] === $Email && password_verify($Senha, $resposta['userPassword'])) {
+        if ($resposta['email'] === $Email && password_verify($Senha, $resposta['senha'])) {
 
-            $_SESSION['user_name'] = $resposta['userName'];
-            $_SESSION['user_email'] = $resposta['userEmail'];
-            $_SESSION['user_id'] = $resposta['userID'] ?? null;
+            $_SESSION['user_name'] = $resposta['nome'];
+            $_SESSION['user_email'] = $resposta['email'];
+            $_SESSION['user_id'] = $resposta['id'] ?? null;
             $_SESSION['logado'] = true;
             $_SESSION['ultimo_acesso'] = time();
 

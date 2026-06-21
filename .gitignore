@@ -23,6 +23,6 @@ logs/
 Thumbs.db
 
 # scripts
-deploy-prod.sh
+deploy.sh
 start-dev.sh
 stop-dev.sh

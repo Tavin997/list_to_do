@@ -8,7 +8,7 @@
 </head>
 <body>
    <script>
-        window.location.href = '/front-end/home.html';
+        window.location.href = `./front-end/home.html`;
    </script>
 </body>
 </html>

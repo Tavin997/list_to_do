@@ -1,5 +1,5 @@
 // assets/js/signUp.js - JavaScript do formulário de cadastro
-
+const API_URL = window.API_URL;
 /**
  * ====================================
  * FUNÇÕES DE TEMA (CLARO/ESCURO)
@@ -62,14 +62,14 @@ function togglePassword(fieldId, iconId) {
 function checkPasswordStrength(password) {
     let strength = 0;
     const requirements = {
-        length: password.length >= 6,
+        length: password.length >= 8,
         uppercase: /[A-Z]/.test(password),
         lowercase: /[a-z]/.test(password),
         number: /[0-9]/.test(password)
     };
 
     // Atualizar lista de requisitos
-    document.getElementById('reqLength').innerHTML = requirements.length ? '✓ Mínimo 6 caracteres' : '✗ Mínimo 6 caracteres';
+    document.getElementById('reqLength').innerHTML = requirements.length ? '✓ Mínimo 8 caracteres' : '✗ Mínimo 8 caracteres';
     document.getElementById('reqUppercase').innerHTML = requirements.uppercase ? '✓ Pelo menos uma letra maiúscula' : '✗ Pelo menos uma letra maiúscula';
     document.getElementById('reqLowercase').innerHTML = requirements.lowercase ? '✓ Pelo menos uma letra minúscula' : '✗ Pelo menos uma letra minúscula';
     document.getElementById('reqNumber').innerHTML = requirements.number ? '✓ Pelo menos um número' : '✗ Pelo menos um número';
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // 4. ENVIAR PARA O BACKEND VIA FETCH
             // ========================================
 
-            const response = await fetch('https://list-to-do-cijf.onrender.com/banco-dados/cadastroUsuario.php', {
+            const response = await fetch(`${API_URL}/banco-dados/cadastroUsuario.php`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

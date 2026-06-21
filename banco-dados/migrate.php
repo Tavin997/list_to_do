@@ -3,24 +3,30 @@
 
     try {
         $sql = "CREATE TABLE IF NOT EXISTS usuarios (
-        userID int primary key AUTO_INCREMENT,
-        userName varchar(100) not null,
-        userEmail varchar(100) not null unique,
-        userPassword varchar(255) not null
-        );";
+        id int primary key AUTO_INCREMENT,
+        nome varchar(100) not null,
+        email varchar(100) not null unique,
+        senha varchar(255) not null
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 
         $db->exec($sql);
 
         $sql = "CREATE TABLE IF NOT EXISTS tarefas (
-        tarefasID int primary key AUTO_INCREMENT,
-        tarefasTiutlo varchar(100) not null,
-        tarefasDescricao varchar(200),
-        tarefasPrioridade int not null,
-        tarefasStatus int not null,
-        tarefasCategoria varchar(20) not null,
-        tarefasData date not null, 
-        userID int not null
-        );";
+        id int primary key AUTO_INCREMENT,
+        titulo varchar(100) not null,
+        descricao varchar(200),
+        prioridade int not null,
+        status int not null,
+        categoria varchar(20) not null,
+        data date not null, 
+        userid int not null,
+
+        CONSTRAINT fk_userID
+        FOREIGN KEY (userID) 
+        REFERENCES usuarios(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
 
         $db->exec($sql);
 
